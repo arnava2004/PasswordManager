@@ -1,0 +1,11 @@
+{
+    "name": "Password Manager",
+    "version": "1.0.0",
+    "description": "This is to manage passwords",
+    "manifest_version": 3, 
+    "author": ["Tejessrihari Prabakaran, Arnav Arora"],
+    "action": {
+        "default_popup": "index.html",
+        "default_title": "Password Manager"
+    } 
+}
