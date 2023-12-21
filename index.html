@@ -8,8 +8,27 @@
 </head>
 <body>
     
-    <div>   
-        <h2>Password Manager</h2>
+    <div class="cont">   
+        <h1 class="title">Password Generation</h1>
+        <h3 class="pass-display" id="passDisplay">password</h3>
+        <form id="passGeneratorForm" class="form">
+            <label for="charAmount">Length of Password</label>
+            <div class="char-amount-cont">
+                <input type="range" min="15" max="50" value="20" id="charAmountRange">
+                <input class="num-imput" type="number" min="15" max="50" value="10" id="charAmountNum">
+            </div>
+
+            <label for="UppercaseCheck">Uppercase Check</label>
+            <input type="checkbox" id="UppercaseCheck">
+
+            <label for="NumbersCheck">Numbers Check</label>
+            <input type="checkbox" id="NumbersCheck">
+
+            <label for="SymbolsCheck">Symbols Check</label>
+            <input type="checkbox" id="SymbolsCheck">
+        
+            <button type="submit" class="btn">Generate Password</button>
+        </form>
     </div>
 
 </body>
