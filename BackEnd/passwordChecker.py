@@ -1,9 +1,6 @@
 # import libraries
-
 import pickle
 import pandas as pd
-import numpy as np
-from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.feature_extraction.text import TfidfVectorizer 
@@ -24,7 +21,7 @@ print("data processed")
 
 # Machine learning pipeline
 
-password_clf=Pipeline([("vect",TfidfVectorizer(tokenizer=tokens)),("clf",DecisionTreeClassifier())])
+password_clf=Pipeline([("vect", TfidfVectorizer(tokenizer=tokens)), ("clf",DecisionTreeClassifier())])
 print("model training in progress")
 password_clf.fit(X,y)
 print("model is trained")
