@@ -68,4 +68,3 @@ function generatePassword(characterAmount, includeUppercase, includeNumbers, inc
 // passwordLength.addEventListener("change", () => { generatePassword();});
 
 
-
