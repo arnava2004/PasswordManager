@@ -15,4 +15,3 @@ const generatePassword = () => {
 // passwordLength.addEventListener("change", () => { generatePassword();});
 
 
-
