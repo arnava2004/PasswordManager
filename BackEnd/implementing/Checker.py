@@ -1,5 +1,5 @@
 from flask import Flask
-from flask import jsonify
+from flask import request, jsonify
 import pickle
 import pandas as pd
 import numpy as np
@@ -23,19 +23,27 @@ print("data processed")
 with open('/Users/tejes/Chrome-exten/PasswordManager/BackEnd/password_model.pkl', 'rb') as file:
     model = pickle.load(file)
 
-Checker = Flask(__name__)
+def predict_password_strength(user_password):
+    predicted_strength = model.predict([user_password])
+    return predicted_strength
 
-@Checker.route('/hello/', methods=['GET', 'POST'])
-def welcome():
-    return "Hello World!"
+Checker = Flask('PasswordChecker')
 
-@Checker.route('/model/', methods=['GET', 'POST'])
+@Checker.route('/predict', methods=['GET', 'POST'])
 def display():
     try:
-        return model.score(X,y)
+        # Get the JSON data from the request
+        data = request.get_json()
+        # Extract the user's password from the JSON data
+        user_password = data['user_password']
+        # Call the prediction function
+        password_strength = predict_password_strength(user_password)
+
+        return jsonify({'password_strength': int(password_strength)})
+    
     except Exception as e :
         return jsonify({"error": str(e)}),500
 
 if __name__ == '__main__':
-    Checker.run(host='0.0.0.0', port=105)
+    Checker.run(debug = True, host='0.0.0.0', port=105)
 
