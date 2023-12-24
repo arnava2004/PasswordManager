@@ -5,7 +5,7 @@ import getpass
 user_password = getpass.getpass("Enter your password: ")
 
 # Specify the URL of your prediction service
-url = 'http://localhost:9696/predict'
+url = 'http://localhost:105/predict'
 
 # Send the POST request with the password as JSON data
 response = requests.post(url, json={"user_password": user_password})
