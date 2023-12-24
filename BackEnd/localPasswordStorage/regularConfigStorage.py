@@ -1,4 +1,4 @@
-import dataBaseConfig
+import BackEnd.localPasswordStorage.dataBaseConfig as dataBaseConfig
 import rich
 from rich.console import Console
 from rich import print as printc
