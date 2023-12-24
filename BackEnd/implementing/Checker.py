@@ -12,15 +12,15 @@ def tokens(string):
     """Break strings into characters."""
     return [x for x in string]
     
-print("libraries imported")
+# print("libraries imported")
 
-df = pd.read_csv("/Users/tejes/Chrome-exten/PasswordManager/BackEnd/data.csv", on_bad_lines='skip')
-df=df.dropna()
-X=df.drop("strength",axis=1).values.flatten()
-y=df["strength"].values
-print("data processed")
+# df = pd.read_csv("/Users/tejes/Chrome-exten/PasswordManager/BackEnd/data.csv", on_bad_lines='skip')
+# df=df.dropna()
+# X=df.drop("strength",axis=1).values.flatten()
+# y=df["strength"].values
+# print("data processed")
 
-with open('/Users/tejes/Chrome-exten/PasswordManager/BackEnd/password_model.pkl', 'rb') as file:
+with open('C:\PasswordManager\BackEnd\password_model.pkl', 'rb') as file:
     model = pickle.load(file)
 
 def predict_password_strength(user_password):
@@ -32,9 +32,12 @@ Checker = Flask('PasswordChecker')
 @Checker.route('/predict', methods=['GET', 'POST'])
 def display():
     try:
-        # Get the JSON data from the request
         data = request.get_json()
         # Extract the user's password from the JSON data
+        # Get the JSON data from the request
+        if 'user_password' not in data:
+            return jsonify({'error': 'Invalid JSON structure'}), 400
+        
         user_password = data['user_password']
         # Call the prediction function
         password_strength = predict_password_strength(user_password)
