@@ -38,6 +38,17 @@ def config():
     # passwords will be encypted and stored locally in chrome browser of user, will use chrome API again to store
     # in user's local computer, but due to the algorithm, if the passwords were to be leaked, they would be hard to decrypt
     # without the masterkey 
-    queryEntriesTable = "CREATE TABLE pm.entries (sitename TEXT NOT NULL, url TEXT NOT NULL, )"
+    queryEntriesTable = """CREATE TABLE pm.entries (sitename TEXT NOT NULL, url TEXT NOT NULL, 
+    email TEXT NOT NULL, username TEXT, password TEXT NOT NULL)"""
+    res = cursor.execute(queryEntriesTable)
 
-config()
+    masterPassword = ""
+    while True:
+        masterPassword = getpass("Choose a MASTER PASSWORD: ")
+        if masterPassword != getpass("Re-type MASTER PASSWORD: ") and masterPassword != "":
+            break
+        printc("[red][-] Please try again. [/red]")
+    
+    # Let's Hash the master password now
+    hashedMasterPassword = hashlib.sha256(masterPassword.encode()).hexdigest()
+    printc("[green][+][/green] Generated hash of MASTER PASSWORD")
