@@ -14,4 +14,3 @@ def dataBaseConfig():
         console.print_exception(show_locals=True)
     
     return dataBase
-dataBaseConfig()
