@@ -11,6 +11,10 @@ const NumbersCheck = document.getElementById("NumbersCheck");
 const SymbolsCheck = document.getElementById("SymbolsCheck");
 const passDisplay = document.getElementById("passDisplay");
 
+const form2 = document.getElementById("passTester");
+const Testpass = document.getElementById("Testpass");
+const strength = document.getElementById("strength");
+
 const UPPERCASE_CHAR_CODES = arrayFromLowToHigh(65, 90)
 const LOWERCASE_CHAR_CODES = arrayFromLowToHigh(97, 122)
 const NUMBER_CHAR_CODES = arrayFromLowToHigh(48, 57)
@@ -32,6 +36,12 @@ form.addEventListener("submit", e => {
     const symbols = SymbolsCheck.checked;
     const password = generatePassword(charAmount, uppercase, numbers, symbols);
     passDisplay.innerText = password;
+})
+
+form2.addEventListener("submit", e => {
+  e.preventDefault();
+  const passValue = Testpass.value;
+  getHttp(passValue);
 })
 
 function arrayFromLowToHigh(low, high) {
@@ -64,6 +74,23 @@ function generatePassword(characterAmount, includeUppercase, includeNumbers, inc
     return passwordCharacters.join('')
 }
 
+function getHttp(passValue) {
+  const Http = new XMLHttpRequest();
+  const url = "http://localhost:105/predict";
+  Http.open("POST", url, true);
+  Http.setRequestHeader("Content-Type", "application/json");
+  console.log(Http.readyState);
+  console.log(Http.status);
+  Http.onreadystatechange = function () {
+    if (Http.readyState === 4 && Http.status === 200) {
+      var json = JSON.parse(Http.responseText); 
+      strength.innerText = json.password_strength;
+    }
+  };
+  
+  var data = JSON.stringify({"user_password": passValue});
+  Http.send(data);
+}
 // Uncomment when range becomes input and password length is mutable
 // passwordLength.addEventListener("change", () => { generatePassword();});
 

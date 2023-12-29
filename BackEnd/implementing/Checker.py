@@ -1,5 +1,6 @@
 from flask import Flask
 from flask import request, jsonify
+import flask_cors
 import pickle
 import pandas as pd
 import numpy as np
@@ -20,7 +21,7 @@ def tokens(string):
 # y=df["strength"].values
 # print("data processed")
 
-with open('C:\PasswordManager\BackEnd\password_model.pkl', 'rb') as file:
+with open('/Users/tejes/Chrome-exten/PasswordManager/BackEnd/password_model.pkl', 'rb') as file:
     model = pickle.load(file)
 
 def predict_password_strength(user_password):
@@ -28,11 +29,12 @@ def predict_password_strength(user_password):
     return predicted_strength
 
 Checker = Flask('PasswordChecker')
+cors = flask_cors.CORS(Checker, supports_credentials=False)
 
 @Checker.route('/predict', methods=['GET', 'POST'])
 def display():
     try:
-        data = request.get_json()
+        data = request.json
         # Extract the user's password from the JSON data
         # Get the JSON data from the request
         if 'user_password' not in data:
