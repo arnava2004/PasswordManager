@@ -21,7 +21,7 @@ def tokens(string):
 # y=df["strength"].values
 # print("data processed")
 
-with open('/Users/tejes/Chrome-exten/PasswordManager/BackEnd/password_model.pkl', 'rb') as file:
+with open('C:\PasswordManager\BackEnd\password_model.pkl', 'rb') as file:
     model = pickle.load(file)
 
 def predict_password_strength(user_password):
